@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Files Comparator - Comparison Results</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/static/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/static/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #ffffff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        h2 {
+            color: #343a40;
+            text-align: center;
+            font-weight: bold;
+        }
+        .table {
+            background-color: #ffffff;
+            table-layout: fixed; /* Equal column width */
+            width: 100%; /* Full width table */
+        }
+        .table th {
+            width: 25%; /* Equal column width for 4 columns */
+            text-align: center; /* Center-align content */
+            vertical-align: middle; /* Vertically center the title */
+            word-wrap: break-word; /* Prevent overflow of long text */
+            justify-content: center;
+            align-items: center;
+        }
+        .table td {
+            width: 25%; /* Equal column width for 4 columns */
+            text-align: center; /* Center-align content */
+            word-wrap: break-word; /* Prevent overflow of long text */
+            border-right: 1px solid #ddd;
+            border-top: 1px solid white; /* Thin white line above */
+            border-bottom: 1px solid white; /* Thin white line below */
+        }
+        .table th:last-child, .table td:last-child {
+            border-right: none;
+        }
+        .table thead {
+            background-color: #a02775;
+            color: white;
+        }
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .table-hover tbody tr:hover {
+            background-color: inherit !important; /* Prevent any background change */
+        }
+        .table-hover tbody td:hover {
+            background-color: inherit !important; /* Prevent any cell-level background change */
+        }
+        .btn-secondary {
+            background-color: #a02775;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #cc00cc;
+            border-color: #545b62;
+        }
+        .highlight-green {
+            background-color: #d4edda; /* Light green */
+            border-right: 1px solid #ddd;
+        }
+        .highlight-red {
+            background-color: #f8d7da; /* Light red */
+            border-right: 1px solid #ddd;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Media Files Comparator - Comparison Results</h2>
+        <table class="table table-bordered">
+            <colgroup>
+                <col style="width: 15%;">
+                <col style="width: 25%;">
+                <col style="width: 35%;">
+                <col style="width: 35%;">
+            </colgroup>
+            <thead>
+                <tr>
+                    <th><strong>Track</strong></th>  <!-- Bold "Track" header -->
+                    <th><strong>Property</strong></th>  <!-- Bold "Property" header -->
+                    <th>{{ comparison_data['File 1 Metadata'][0].get('file_name', '') }} {{ file1_name }}</th>
+                    <th>{{ comparison_data['File 2 Metadata'][0].get('file_name', '') }} {{ file2_name }}</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in range(comparison_data['Track Type']|length) %}
+                {% for key, value in comparison_data['File 1 Metadata'][i].items() %}
+                <tr>
+                    {% if loop.index == 1 %}
+                    <td rowspan="{{ comparison_data['File 1 Metadata'][i].keys() | length }}">
+                        <strong>{{ comparison_data['Track Type'][i] }}</strong>  <!-- Bold Track Type -->
+                    </td>
+                    {% endif %}
+                    <td {% if comparison_data['File 2 Metadata'][i].get(key) == value %}class="highlight-green"{% else %}class="highlight-red"{% endif %}>
+                        <strong>{{ key }}</strong>  <!-- Bold metadata title -->
+                    </td>
+                    <td>{{ value }}</td>
+                    <td>{{ comparison_data['File 2 Metadata'][i].get(key, 'N/A') }}</td>
+                </tr>
+                {% endfor %}
+                {% endfor %}
+            </tbody>
+        </table>
+        
+        
+        <a href="/" class="btn btn-secondary">Back to Upload</a>
+    </div>
+</body>
+</html>

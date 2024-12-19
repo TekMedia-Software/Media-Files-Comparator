@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Media Files Comparator</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="icon" type="image/png" href="/static/favicon/favicon-96x96.png" sizes="96x96" />
+    <link rel="icon" type="image/svg+xml" href="/static/favicon/favicon.svg" />
+    <link rel="shortcut icon" href="/static/favicon/favicon.ico" />
+    <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png" />
+    <style>
+        body {
+            background-color: #f4f7fa;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            max-width: 600px;
+            background-color: #ffffff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 50px;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 5px;
+        }
+        .logo-container img {
+            height: 65px; /* Adjust logo size */
+        }
+        .text-container {
+            text-align: left; /* Align text to the left */
+            flex-grow: 1;
+        }
+        h1 {
+            color: #001f4d; /* Dark Blue */
+            font-weight: bold;
+            font-size: 24px; /* Default for 'Media Comparator' */
+            margin: 0;
+            display: inline-block;
+            text-align: center;
+        }
+        h1 span {
+            display: block;
+            font-size: 36px; /* Larger for 'TekMedia' */
+        }
+        h2 {
+            font-size: 15px;
+            color: #001f4d; /* Dark Blue */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            font-weight: 600;
+            color: #555;
+        }
+        .form-control {
+            border-radius: 5px;
+            transition: box-shadow 0.3s ease;
+        }
+        .form-control:focus {
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            border-color: #80bdff;
+        }
+        .btn-primary {
+            background-color: #a02775; /* Magenta */
+            border: none;
+            border-radius: 5px;
+            padding: 10px 20px;
+            font-size: 16px;
+            font-weight: bold;
+            color: white; /* White text */
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        .btn-primary:hover {
+            background-color: #cc00cc; /* Slightly darker magenta */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo-container">
+                <img src="static/Logo.png" alt="Logo">
+            </div>
+        </div>
+        <div class="text-container" style="text-align: center;">
+            <h1>
+                Media Files Comparator
+            </h1>
+        </div>
+        <h2>Upload Media Files for Comparison</h2>
+        <form action="/compare" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="file1">Upload File 1:</label>
+                <div class="custom-file">
+                    <input type="file" class="form-control-file" id="file1" name="file1" accept="audio/*, video/*, image/*" required>
+                </div>
+            </div>
+            <div class="form-group">
+                <label for="file2">Upload File 2:</label>
+                <div class="custom-file">
+                    <input type="file" class="form-control-file" id="file2" name="file2" accept="audio/*, video/*, image/*" required>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Compare Metadata</button>
+        </form>
+    </div>
+</body>
+</html>
